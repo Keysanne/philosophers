@@ -28,16 +28,23 @@ typedef struct s_philo
 	int	eat;
 	int	sleep;
 	int	nb_eat;
-	int	time_sec;
-	int	time_usec;
+	int	is_dead;
+	long int	time_sec;
+	long int	time_usec;
 	pthread_t		*philo;
-	pthread_mutex_t	*fork;	
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	lock;
+	pthread_mutex_t	over;
 }		t_philo;
 
 
 /*utils*/
 
 int	ft_atoi(const char *nptr);
-void	timer(t_philo *info);
+int	timer(t_philo *info);
+int	left_fork(t_philo *info, int x);
+int	is_u_dead(t_philo *info, int time);
+void	start(t_philo *info, int x);
+void	print_msg(t_philo *info, int x, int msg);
 
 #endif

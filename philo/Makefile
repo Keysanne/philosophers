@@ -6,12 +6,12 @@
 #    By: tbatteux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 12:33:08 by tbatteux          #+#    #+#              #
-#    Updated: 2023/06/23 17:07:18 by tbatteux         ###   ########.fr        #
+#    Updated: 2023/06/24 14:23:31 by tbatteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosophers
-FICHIERS_C = timer.c utils.c 
+FICHIERS_C = utils.c start.c 
 FICHIERS_O = ${FICHIERS_C:.c=.o}
 FLAG = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 
