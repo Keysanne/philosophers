@@ -13,9 +13,11 @@
 #include "philosophers.h"
 int	is_u_dead(t_philo *info, int time)
 {
+	pthread_mutex_lock(&info->over);
 	if (info->is_dead == 1)
 		return (-1);
-	else if (timer(info) - time > info->die)
+	pthread_mutex_unlock(&info->over);
+	if (timer(info) - time > info->die)
 	{
 		pthread_mutex_lock(&info->over);
 		info->is_dead = 1;
@@ -62,7 +64,7 @@ void	print_msg(t_philo *info, int x, int msg)
 {
 	pthread_mutex_lock(&info->lock);
 	if (msg == 1)
-		printf("%d : %d has taken a fork", timer(info), x);
+		printf("%d : %d has taken a fork\n", timer(info), x);
 	pthread_mutex_unlock(&info->lock);
 }
 

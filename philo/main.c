@@ -57,10 +57,7 @@ void	philosophers(t_philo *info)
 	pthread_mutex_init(&info->over, NULL);
 	x = -1;
 	while (++x < info->nb)
-	{
 		pthread_create(&info->philo[x], NULL, routine, info);
-		usleep(500);
-	}
 	x = -1;
 	while (++x < info->nb)
 		pthread_join(info->philo[x], NULL);
