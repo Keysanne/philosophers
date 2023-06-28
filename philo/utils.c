@@ -65,6 +65,8 @@ void	print_msg(t_philo *info, int x, int msg)
 	pthread_mutex_lock(&info->lock);
 	if (msg == 1)
 		printf("%d : %d has taken a fork\n", timer(info), x);
+	if (msg == 2)
+		printf("%d : %d is eating\n", timer(info), x);
 	pthread_mutex_unlock(&info->lock);
 }
 
