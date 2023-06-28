@@ -43,7 +43,7 @@ typedef struct s_philo
 int	ft_atoi(const char *nptr);
 int	timer(t_philo *info);
 int	left_fork(t_philo *info, int x);
-int	is_u_dead(t_philo *info, int time);
+int	is_u_dead(t_philo *info, int time, int x);
 void	start(t_philo *info, int x);
 void	print_msg(t_philo *info, int x, int msg);
 

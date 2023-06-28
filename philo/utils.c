@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
-int	is_u_dead(t_philo *info, int time)
+int	is_u_dead(t_philo *info, int time, int x)
 {
 	pthread_mutex_lock(&info->over);
 	if (info->is_dead == 1)
@@ -21,6 +21,7 @@ int	is_u_dead(t_philo *info, int time)
 	{
 		pthread_mutex_lock(&info->over);
 		info->is_dead = 1;
+		print_msg(info, x, 5);
 		pthread_mutex_unlock(&info->over);
 		return (-1);
 	}
@@ -67,6 +68,12 @@ void	print_msg(t_philo *info, int x, int msg)
 		printf("%d : %d has taken a fork\n", timer(info), x);
 	if (msg == 2)
 		printf("%d : %d is eating\n", timer(info), x);
+	if (msg == 3)
+		printf("%d : %d is sleeping\n", timer(info), x);
+	if (msg == 4)
+		printf("%d : %d is thinking\n", timer(info), x);
+	if (msg == 5)
+		printf("%d : %d died\n", timer(info), x);
 	pthread_mutex_unlock(&info->lock);
 }
 

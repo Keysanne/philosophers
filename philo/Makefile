@@ -13,7 +13,7 @@
 NAME = philosophers
 FICHIERS_C = utils.c start.c 
 FICHIERS_O = ${FICHIERS_C:.c=.o}
-FLAG = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
+FLAG = -Wall -Wextra -Werror -pthread -g
 
 all: ${NAME}
 

@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 		if (argc == 6)
 			info.nb_eat = ft_atoi(argv[5]);
 		else
-			info.nb_eat = 0;
+			info.nb_eat = -1;
 		gettimeofday(&value, NULL);
 		info.time_sec = value.tv_sec;
 		info.time_usec = value.tv_usec;

@@ -15,18 +15,18 @@
 int	take_fork(t_philo *info, int l_fork, int r_fork, int time)
 {
 	pthread_mutex_lock(&info->fork[l_fork]);
-	if (is_u_dead(info, time) == -1)
+	if (is_u_dead(info, time, r_fork) == -1)
 	{
 		pthread_mutex_unlock(&info->fork[l_fork]);
-		return (-1);
+		exit (-1);
 	}
 	print_msg(info, r_fork, 1);
 	pthread_mutex_lock(&info->fork[r_fork]);
-	if (is_u_dead(info, time) == -1)
+	if (is_u_dead(info, time, r_fork) == -1)
 	{
 		pthread_mutex_unlock(&info->fork[l_fork]);
 		pthread_mutex_unlock(&info->fork[r_fork]);
-		return (-1);
+		exit (-1);
 	}
 	print_msg(info, r_fork, 1);
 	return (0);
@@ -34,40 +34,65 @@ int	take_fork(t_philo *info, int l_fork, int r_fork, int time)
 
 int	eat(t_philo *info, int l_fork, int r_fork, int *time)
 {
-	if (is_u_dead(info, *time) == -1)
+	if (is_u_dead(info, *time, r_fork) == -1)
 	{
 		pthread_mutex_unlock(&info->fork[l_fork]);
 		pthread_mutex_unlock(&info->fork[r_fork]);
-		return (-1);
+		exit (-1);
 	}
 	print_msg(info, r_fork, 2);
-	usleep(info->eat * 1000);
 	*time = timer(info);
+	usleep(info->eat * 1000);
 	pthread_mutex_unlock(&info->fork[l_fork]);
 	pthread_mutex_unlock(&info->fork[r_fork]);
 	return (0);
 }
 
-int	sleep(t_philo *info, int time)
+int	sleep_think(t_philo *info, int time, int x)
 {
-	if (is_u_dead(info, time) == -1)
-		return (-1);
+	if (is_u_dead(info, time, x) == -1)
+		exit (-1);
+	print_msg(info, x, 3);
+	if (is_u_dead(info, time, x) == -1)
+		exit (-1);
+	usleep(info->sleep * 1000);
+	if (is_u_dead(info, time, x) == -1)
+		exit (-1);
+	print_msg(info, x, 4);
+	return (0);
 }
 
 void	start(t_philo *info, int x)
 {
 	int	time;
+	int	i;
 
+	i = 0;
 	time = 0;
-	while (1)
+	if (info->nb_eat == -1)
 	{
-		if (take_fork(info, left_fork(info, x), x, time)== -1)
-			break ;
-		if (eat(info, left_fork(info, x), x, &time) == -1)
-			break ;
-		if (sleep(info, time) == -1)
-			break ;
-	//	if (think(info, time) == -1)
-	//		break ;
+		while (1)
+		{
+			if (take_fork(info, left_fork(info, x), x, time)== -1)
+				break ;
+			if (eat(info, left_fork(info, x), x, &time) == -1)
+				break ;
+			if (sleep_think(info, time, x) == -1)
+				break ;
+		}
+	}
+	else
+	{
+		while (1)
+		{
+			if (take_fork(info, left_fork(info, x), x, time)== -1)
+				break ;
+			if (eat(info, left_fork(info, x), x, &time) == -1)
+				break ;
+			if (++i >= info->nb_eat)
+				break ;
+			if (sleep_think(info, time, x) == -1)
+				break ;
+		}
 	}
 }
