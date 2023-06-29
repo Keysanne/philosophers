@@ -74,7 +74,7 @@ void	philosophers(t_philo *info)
 
 int	main(int argc, char **argv)
 {
-	t_philo	info;
+	t_philo			info;
 	struct timeval	value;	
 
 	if (argc == 6 || argc == 5)
@@ -88,7 +88,8 @@ int	main(int argc, char **argv)
 		if (argc == 6)
 			info.nb_eat = ft_atoi(argv[5]);
 		else
-			info.nb_eat = -1;
+			info.nb_eat = -2;
+		check_value(argc, argv);
 		gettimeofday(&value, NULL);
 		info.time_sec = value.tv_sec;
 		info.time_usec = value.tv_usec;
@@ -97,6 +98,5 @@ int	main(int argc, char **argv)
 		else
 			philosophers(&info);
 	}
-	else
-		return (0);
+	return (0);
 }

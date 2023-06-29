@@ -66,7 +66,7 @@ void	nb_de_repas(t_philo *info, int time, int i, int x)
 {
 	while (1)
 	{
-		if (take_fork(info, left_fork(info, x), x, time)== -1)
+		if (take_fork(info, left_fork(info, x), x, time) == -1)
 			break ;
 		if (eat(info, left_fork(info, x), x, &time) == -1)
 			break ;
@@ -88,11 +88,11 @@ void	start(t_philo *info, int x)
 
 	i = 0;
 	time = 0;
-	if (info->nb_eat == -1)
+	if (info->nb_eat == -2)
 	{
 		while (1)
 		{
-			if (take_fork(info, left_fork(info, x), x, time)== -1)
+			if (take_fork(info, left_fork(info, x), x, time) == -1)
 				break ;
 			if (eat(info, left_fork(info, x), x, &time) == -1)
 				break ;

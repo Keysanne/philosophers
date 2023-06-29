@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = philosophers
-FICHIERS_C = utils.c start.c routine_solo.c 
+FICHIERS_C = utils.c start.c routine_solo.c check_value.c
 FICHIERS_O = ${FICHIERS_C:.c=.o}
 FLAG = -Wall -Wextra -Werror -pthread -g
 

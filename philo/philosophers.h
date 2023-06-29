@@ -22,31 +22,29 @@
 
 typedef struct s_philo
 {
-	int	x;
-	int	nb;
-	int	die;
-	int	eat;
-	int	sleep;
-	int	nb_eat;
-	int	eaten;
-	int	is_dead;
-	long int	time_sec;
-	long int	time_usec;
+	int				x;
+	int				nb;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				nb_eat;
+	int				eaten;
+	int				is_dead;
+	long int		time_sec;
+	long int		time_usec;
 	pthread_t		*philo;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	over;
 }		t_philo;
 
-
-/*utils*/
-
-int	ft_atoi(const char *nptr);
-int	timer(t_philo *info);
-int	left_fork(t_philo *info, int x);
-int	is_u_dead(t_philo *info, int time, int x);
+int		ft_atoi(const char *nptr);
+int		timer(t_philo *info);
+int		left_fork(t_philo *info, int x);
+int		is_u_dead(t_philo *info, int time, int x);
 void	start(t_philo *info, int x);
 void	print_msg(t_philo *info, int x, int msg);
+void	check_value(int argc, char **argv);
 void	*routine_solo(void *data);
 
 #endif

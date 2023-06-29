@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
 int	is_u_dead(t_philo *info, int time, int x)
 {
 	pthread_mutex_lock(&info->over);
@@ -87,11 +88,10 @@ void	print_msg(t_philo *info, int x, int msg)
 
 int	timer(t_philo *info)
 {
-	struct	timeval	test;
-	int	sec;
-	int	milli;
-	
-	
+	struct timeval	test;
+	int				sec;
+	int				milli;
+
 	gettimeofday(&test, NULL);
 	sec = (test.tv_sec - info->time_sec) * 1000;
 	milli = (test.tv_usec - info->time_usec) / 1000;
