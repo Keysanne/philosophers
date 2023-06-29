@@ -6,11 +6,19 @@
 /*   By: tbatteux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 10:48:04 by tbatteux          #+#    #+#             */
-/*   Updated: 2023/06/27 13:27:36 by tbatteux         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:56:01 by tbatteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	philosolo(t_philo *info)
+{
+	pthread_t	philo;
+
+	pthread_create(&philo, NULL, routine_solo, info);
+	pthread_join(philo, NULL);
+}
 
 void	*routine(void *data)
 {
@@ -30,13 +38,13 @@ void	free_all(t_philo *info)
 {
 	int	x;
 
-	x = -1;
-	while (++x < info->nb)
+	x = 0;
+	while (x++ < info->nb)
 		pthread_mutex_destroy(&info->fork[x]);
 	pthread_mutex_destroy(&info->lock);
 	pthread_mutex_destroy(&info->over);
-	free(info->philo);
 	free(info->fork);
+	free(info->philo);
 }
 
 void	philosophers(t_philo *info)
@@ -50,17 +58,17 @@ void	philosophers(t_philo *info)
 	info->fork = malloc((info->nb + 1) * sizeof(pthread_mutex_t));
 	if (!(info->fork))
 		return ;
-	x = -1;
-	while (++x < info->nb)
+	x = 0;
+	while (x++ < info->nb)
 		pthread_mutex_init(&info->fork[x], NULL);
 	pthread_mutex_init(&info->lock, NULL);
 	pthread_mutex_init(&info->over, NULL);
-	x = -1;
-	while (++x < info->nb)
-		pthread_create(&info->philo[x], NULL, routine, info);
-	x = -1;
-	while (++x < info->nb)
-		pthread_join(info->philo[x], NULL);
+	x = 0;
+	while (x < info->nb)
+		pthread_create(&info->philo[x++], NULL, routine, info);
+	x = 0;
+	while (x < info->nb)
+		pthread_join(info->philo[x++], NULL);
 	free_all(info);
 }
 
@@ -76,6 +84,7 @@ int	main(int argc, char **argv)
 		info.eat = ft_atoi(argv[3]);
 		info.sleep = ft_atoi(argv[4]);
 		info.is_dead = 0;
+		info.eaten = 0;
 		if (argc == 6)
 			info.nb_eat = ft_atoi(argv[5]);
 		else
@@ -83,7 +92,10 @@ int	main(int argc, char **argv)
 		gettimeofday(&value, NULL);
 		info.time_sec = value.tv_sec;
 		info.time_usec = value.tv_usec;
-		philosophers(&info);
+		if (info.nb == 1)
+			philosolo(&info);
+		else
+			philosophers(&info);
 	}
 	else
 		return (0);

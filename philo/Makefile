@@ -6,12 +6,12 @@
 #    By: tbatteux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 12:33:08 by tbatteux          #+#    #+#              #
-#    Updated: 2023/06/24 14:23:31 by tbatteux         ###   ########.fr        #
+#    Updated: 2023/06/29 12:57:21 by tbatteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosophers
-FICHIERS_C = utils.c start.c 
+FICHIERS_C = utils.c start.c routine_solo.c 
 FICHIERS_O = ${FICHIERS_C:.c=.o}
 FLAG = -Wall -Wextra -Werror -pthread -g
 

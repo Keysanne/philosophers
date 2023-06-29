@@ -28,6 +28,7 @@ typedef struct s_philo
 	int	eat;
 	int	sleep;
 	int	nb_eat;
+	int	eaten;
 	int	is_dead;
 	long int	time_sec;
 	long int	time_usec;
@@ -46,5 +47,6 @@ int	left_fork(t_philo *info, int x);
 int	is_u_dead(t_philo *info, int time, int x);
 void	start(t_philo *info, int x);
 void	print_msg(t_philo *info, int x, int msg);
+void	*routine_solo(void *data);
 
 #endif

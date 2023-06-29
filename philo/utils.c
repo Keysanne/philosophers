@@ -15,7 +15,15 @@ int	is_u_dead(t_philo *info, int time, int x)
 {
 	pthread_mutex_lock(&info->over);
 	if (info->is_dead == 1)
+	{
+		pthread_mutex_unlock(&info->over);
 		return (-1);
+	}
+	if (info->eaten == info->nb_eat + 1)
+	{
+		pthread_mutex_unlock(&info->over);
+		return (-1);
+	}
 	pthread_mutex_unlock(&info->over);
 	if (timer(info) - time > info->die)
 	{
